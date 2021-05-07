@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DataService } from './core/data.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent {
   form = new FormGroup({});
   model = {
     firstName: 'John',
-    age: 44
+    age: 44,
+    nationId: 2
   };
   fields: FormlyFieldConfig[] = [
     {
@@ -26,10 +28,21 @@ export class AppComponent {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Age'
+        label: 'Age',
+        nationId: 2
+      }
+    },
+    {
+      key: 'nationId',
+      type: 'select',
+      templateOptions: {
+        label: 'Nation',
+        options: this.dataService.getNations()
       }
     }
   ];
+
+  constructor(private dataService: DataService){}
 
   onSubmit({ valid, value }) {
     console.log(value);
