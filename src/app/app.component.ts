@@ -36,7 +36,12 @@ export class AppComponent {
       templateOptions: {
         type: 'number',
         label: 'Age',
-        countryId: 2
+        min: 18
+      },
+      validation: {
+        messages: {
+          min: 'You have to be 18 or older.'
+        }
       }
     },
     {
