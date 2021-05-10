@@ -38,8 +38,8 @@ export class AppComponent {
       key: 'countryId',
       type: 'select',
       templateOptions: {
-        label: 'Nation',
-        options: this.dataService.getNations()
+        label: 'Country',
+        options: this.dataService.getCountries()
       }
     },
     {
@@ -48,6 +48,9 @@ export class AppComponent {
       templateOptions: {
         label: 'City',
         options: []
+      },
+      expressionProperties: {
+        'templateOptions.disabled': (model) => !model.nationId
       },
       hooks: {
         onInit: (field: FormlyFieldConfig) => {

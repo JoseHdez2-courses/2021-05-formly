@@ -8,7 +8,7 @@ export class DataService {
 
   constructor() { }
 
-  getNations() {
+  getCountries() {
     return of([
       {
         value: 1,
