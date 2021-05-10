@@ -15,7 +15,13 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyModule.forRoot({ 
+      extras: { lazyRender: true } ,
+      validationMessages: [{
+        name: 'required',
+        message: 'This field is required'
+      }]
+    }),
     FormlyMaterialModule,
     BrowserAnimationsModule,
     SharedModule
