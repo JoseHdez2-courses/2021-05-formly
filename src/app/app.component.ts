@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DataService } from './core/data.service';
-import { switchMap } from 'rxjs/operators';
+import { startWith, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent {
   model = {
     firstName: 'John',
     age: 44,
-    nationId: 2,
+    countryId: 2,
     cityId: 1
   };
   fields: FormlyFieldConfig[] = [
@@ -50,11 +50,14 @@ export class AppComponent {
         options: []
       },
       expressionProperties: {
-        'templateOptions.disabled': (model) => !model.nationId
+        'templateOptions.disabled': (model) => !model.countryId,
+        'model.cityId': '!model.nationId ? null : model.cityId'
       },
       hooks: {
         onInit: (field: FormlyFieldConfig) => {
           field.templateOptions.options = field.form.get('countryId').valueChanges.pipe(
+            startWith(this.model.countryId),
+            tap(),
             switchMap(countryId => this.dataService.getCities(countryId))
           )
         }

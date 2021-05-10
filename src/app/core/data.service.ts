@@ -11,6 +11,10 @@ export class DataService {
   getCountries() {
     return of([
       {
+        value: null,
+        label: ' -- '
+      },
+      {
         value: 1,
         label: 'Italy'
       },
@@ -25,38 +29,38 @@ export class DataService {
     ])
   }
 
-  getCities(nationId: number) {
+  getCities(countryId: number) {
     return of([
       {
         value: null,
         label: ' -- ',
-        nationId: null
+        countryId: null
       },
       {
         value: 10,
         label: 'Bolzano',
-        nationId: 1
+        countryId: 1
       },
       {
         value: 11,
         label: 'Rome',
-        nationId: 1
+        countryId: 1
       },
       {
         value: 20,
         label: 'Berlin',
-        nationId: 2
+        countryId: 2
       },
       {
         value: 20,
         label: 'Munich',
-        nationId: 2
+        countryId: 2
       },
       {
         value: 30,
         label: 'San Francisco',
-        nationId: 3
+        countryId: 3
       }
-    ].filter(entry => !entry.nationId || entry.nationId === nationId));
+    ].filter(entry => !entry.countryId || entry.countryId === countryId));
   }
 }
