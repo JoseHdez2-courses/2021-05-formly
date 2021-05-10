@@ -24,4 +24,39 @@ export class DataService {
       }
     ])
   }
+
+  getCities(nationId: number) {
+    return of([
+      {
+        value: null,
+        label: ' -- ',
+        nationId: null
+      },
+      {
+        value: 10,
+        label: 'Bolzano',
+        nationId: 1
+      },
+      {
+        value: 11,
+        label: 'Rome',
+        nationId: 1
+      },
+      {
+        value: 20,
+        label: 'Berlin',
+        nationId: 2
+      },
+      {
+        value: 20,
+        label: 'Munich',
+        nationId: 2
+      },
+      {
+        value: 30,
+        label: 'San Francisco',
+        nationId: 3
+      }
+    ].filter(entry => !entry.nationId || entry.nationId === nationId));
+  }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DataService } from './core/data.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
   model = {
     firstName: 'John',
     age: 44,
-    nationId: 2
+    nationId: 2,
+    cityId: 1
   };
   fields: FormlyFieldConfig[] = [
     {
@@ -29,15 +31,30 @@ export class AppComponent {
       templateOptions: {
         type: 'number',
         label: 'Age',
-        nationId: 2
+        countryId: 2
       }
     },
     {
-      key: 'nationId',
+      key: 'countryId',
       type: 'select',
       templateOptions: {
         label: 'Nation',
         options: this.dataService.getNations()
+      }
+    },
+    {
+      key: 'cityId',
+      type: 'select',
+      templateOptions: {
+        label: 'City',
+        options: []
+      },
+      hooks: {
+        onInit: (field: FormlyFieldConfig) => {
+          field.templateOptions.options = field.form.get('countryId').valueChanges.pipe(
+            switchMap(countryId => this.dataService.getCities(countryId))
+          )
+        }
       }
     }
   ];
