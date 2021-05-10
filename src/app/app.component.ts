@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DataService } from './core/data.service';
 import { startWith, switchMap, tap } from 'rxjs/operators';
+
+export function PetNameValidator(c: FormControl): ValidationErrors {
+  return !c.value || /(Max)|(Rex)/.test(c.value) ? null : { petName : true }
+}
 
 @Component({
   selector: 'app-root',
@@ -16,7 +20,8 @@ export class AppComponent {
     firstName: 'John',
     age: 44,
     countryId: 2,
-    cityId: 1
+    cityId: 1,
+    ip: null
   };
   fields: FormlyFieldConfig[] = [
     {
@@ -71,6 +76,20 @@ export class AppComponent {
             tap(),
             switchMap(countryId => this.dataService.getCities(countryId))
           )
+        }
+      }
+    },
+    {
+      key: 'petName',
+      type: 'input',
+      templateOptions: {
+        label: 'Pet Name',
+        required: true
+      },
+      validators: {
+        petName: {
+          expression: c => !c.value || /(Max)|(Rex)/.test(c.value),
+          message: 'Pet name must be Max or Rex.'
         }
       }
     }
