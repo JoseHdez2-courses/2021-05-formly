@@ -5,7 +5,7 @@ import { DataService } from './core/data.service';
 import { startWith, switchMap, tap } from 'rxjs/operators';
 
 export function PetNameValidator(c: FormControl): ValidationErrors {
-  return !c.value || /(Max)|(Rex)/.test(c.value) ? null : { petName : true }
+  return !c.value || /(Max)|(Rex)/.test(c.value) ? null : { petName : true };
 }
 
 @Component({
@@ -51,7 +51,7 @@ export class AppComponent {
     },
     {
       key: 'countryId',
-      type: 'select',
+      type: 'my-autocomplete',
       templateOptions: {
         label: 'Country',
         options: this.dataService.getCountries()
@@ -75,7 +75,7 @@ export class AppComponent {
             startWith(this.model.countryId),
             tap(),
             switchMap(countryId => this.dataService.getCities(countryId))
-          )
+          );
         }
       }
     },

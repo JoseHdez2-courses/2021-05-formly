@@ -7,6 +7,9 @@ import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+import { NgSelectFormlyComponent } from './ng-select.type';
 
 export const minValidationMessage = (err, field: FormlyFieldConfig) => {
   return `Please provide a value bigger than ${err.min}. You provided ${err.actual}.`;
@@ -14,19 +17,25 @@ export const minValidationMessage = (err, field: FormlyFieldConfig) => {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, NgSelectFormlyComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    FormlyModule.forRoot({ 
+    NgSelectModule,
+    FormsModule,
+    FormlyModule.forRoot({
       extras: { lazyRender: true } ,
       validationMessages: [{
         name: 'required',
         message: 'This field is required.'
-      },{
+      }, {
         name: 'min',
         message: minValidationMessage
+      }],
+      types: [{
+        name: 'my-autocomplete',
+        component: NgSelectFormlyComponent
       }]
     }),
     FormlyMaterialModule,
