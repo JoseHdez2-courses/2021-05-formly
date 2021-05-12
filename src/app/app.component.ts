@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyField, FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
 import { DataService } from './core/data.service';
 import { startWith, switchMap, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,6 +16,22 @@ const formlyRow = (fieldConfig: FormlyFieldConfig[]) => {
   };
 };
 
+const formlyInput = (config: {
+  key: string,
+  label: string,
+  templateOptions: FormlyTemplateOptions
+}): FormlyFieldConfig => {
+  return {
+    key: config.key,
+    type: 'input',
+    className: 'flex-3',
+    templateOptions: {
+      label: config.label,
+      ...config.templateOptions
+    }
+  };
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +43,7 @@ export class AppComponent {
     private dataService: DataService,
     private translate: TranslateService
   ) {
-    this.translate.use('de');
+    this.translate.use('en');
   }
 
   form = new FormGroup({});
@@ -44,15 +60,13 @@ export class AppComponent {
       key: 'id'
     },
     formlyRow([
-      {
+      formlyInput({
         key: 'firstName',
-        type: 'input',
-        className: 'flex-3',
+        label: 'First Name',
         templateOptions: {
-          label: 'First Name',
           required: true
         }
-      },
+      }),
       {
         key: 'age',
         type: 'input',
@@ -67,7 +81,7 @@ export class AppComponent {
             min: 'You have to be 18 or older.'
           }
         }
-      },
+      }
     ]),
     formlyRow([
       {

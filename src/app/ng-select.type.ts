@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 
 @Component({
-    selector: "formly-ng-select",
+    // tslint:disable-next-line: component-selector
+    selector: 'formly-ng-select',
     template: `
         <div class="mat-input-infix mat-form-field-infix">
             <ng-select
