@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DataService } from './core/data.service';
 import { startWith, switchMap, tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 export function PetNameValidator(c: FormControl): ValidationErrors {
   return !c.value || /(Max)|(Rex)/.test(c.value) ? null : { petName : true };
@@ -14,6 +15,14 @@ export function PetNameValidator(c: FormControl): ValidationErrors {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(
+    private dataService: DataService,
+    private translate: TranslateService
+  ){
+    this.translate.use('de');
+  }
+
   form = new FormGroup({});
   model = {
     id: 123123,
@@ -95,11 +104,9 @@ export class AppComponent {
     }
   ];
 
-  constructor(private dataService: DataService){}
+  title = 'formly';
 
   onSubmit({ valid, value }) {
     console.log(value);
   }
-
-  title = 'formly';
 }
