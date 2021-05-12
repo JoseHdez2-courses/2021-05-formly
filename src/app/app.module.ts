@@ -15,6 +15,7 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { registerTranslateExtension } from './translate.extension';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
 export const minValidationMessage = (err, field: FormlyFieldConfig) => {
   return `Please provide a value bigger than ${err.min}. You provided ${err.actual}.`;
@@ -27,7 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent, NgSelectFormlyComponent
+    AppComponent, NgSelectFormlyComponent, DynamicFormComponent
   ],
   imports: [
     BrowserModule,

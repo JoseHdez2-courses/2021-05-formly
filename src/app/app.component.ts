@@ -43,7 +43,7 @@ export class AppComponent {
     private dataService: DataService,
     private translate: TranslateService
   ) {
-    this.translate.use('en');
+    // this.translate.use('de');
   }
 
   form = new FormGroup({});
