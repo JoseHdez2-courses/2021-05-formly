@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { FormlyField, FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
 import { DataService } from './core/data.service';
 import { startWith, switchMap, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';

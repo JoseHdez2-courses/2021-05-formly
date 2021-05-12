@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DataService } from '../core/data.service';
+import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -13,7 +14,8 @@ export class DynamicFormComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private http: HttpClient
+    private http: HttpClient,
+    private formlyJsonSchema: FormlyJsonschema
   ) { }
 
   form = new FormGroup({});
@@ -29,9 +31,16 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .get<FormlyFieldConfig[]>('/assets/dynamic-form.json')
-      .subscribe(fields => {
-        this.fields = fields;
+    //  .get<FormlyFieldConfig[]>('/assets/dynamic-form.json')
+    //   .subscribe(fields => {
+    //     this.fields = fields;
+    //   });
+      .get('/assets/dynamic-form-schema.json')
+      .subscribe(jsonSchema => {
+        const formlyConfig = this.formlyJsonSchema.toFieldConfig(jsonSchema);
+        console.log(jsonSchema);
+        console.log(formlyConfig);
+        this.fields = formlyConfig.fieldGroup;
       });
   }
 

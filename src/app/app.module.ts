@@ -37,7 +37,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     FormsModule,
     FormlyModule.forRoot({
-      extras: { lazyRender: true } ,
+      extras: { lazyRender: true },
       validationMessages: [{
         name: 'required',
         message: 'This field is required.'
@@ -48,7 +48,21 @@ export function HttpLoaderFactory(http: HttpClient) {
       types: [{
         name: 'my-autocomplete',
         component: NgSelectFormlyComponent
-      }],
+      },
+      {
+        name: 'string',
+        extends: 'input'
+      },
+      {
+        name: 'number',
+        extends: 'input',
+        defaultOptions: {
+          templateOptions: {
+            type: 'number'
+          }
+        }
+      },
+      ],
       extensions: [{
         name: 'data-cy-extension',
         extension: dataCyExtension
